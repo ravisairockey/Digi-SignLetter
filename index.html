@@ -1,114 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Superset Registration Apology</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f3f4f6;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      background: white;
-      border-radius: 1rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      max-width: 700px;
-      padding: 2rem;
-    }
-
-    h2 {
-      color: #1f2937;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      color: #374151;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .signature-section {
-      margin-top: 2rem;
-    }
-
-    #signature-pad {
-      border: 2px dashed #9ca3af;
-      border-radius: 0.5rem;
-      width: 100%;
-      height: 200px;
-    }
-
-    .btn {
-      margin-top: 1rem;
-      background: #2563eb;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .btn:hover {
-      background: #1d4ed8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Letter - Superset Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .letter-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #7f8c8d;
+            margin-top: 0;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .signature-section {
+            margin-top: 50px;
+        }
+        .signature-line {
+            border-top: 1px solid #ccc;
+            width: 300px;
+            margin: 40px 0 10px;
+        }
+        .signature-field {
+            height: 100px;
+            border: 1px dashed #ccc;
+            margin-bottom: 10px;
+            background-color: #f8f8f8;
+        }
+        .signature-instructions {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .student-info {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #95a5a6;
+        }
+        .button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <h2>Apology Letter - Superset Registration</h2>
-    <p>Dear Rasika Ma'am,</p>
-
-    <p>I’m <strong>Ravi Sai Vigneswara</strong> (<strong>22BADR0023</strong>), and I sincerely apologize for missing the Superset registration deadline. It was an oversight, and I truly regret the delay.</p>
-
-    <p>I kindly request your support in enabling me to complete the registration now. I will make sure to comply with all deadlines moving forward.</p>
-
-    <p>Thank you for your understanding.</p>
-
-    <p>Best regards,<br>
-      Ravi Sai Vigneswara<br>
-      22BADR0023
-    </p>
-
-    <div class="signature-section">
-      <p><strong>Digital Signature:</strong></p>
-      <canvas id="signature-pad"></canvas>
-      <button class="btn" onclick="clearSignature()">Clear Signature</button>
-      <button class="btn" onclick="downloadSignature()">Submit Signature</button>
+    <div class="letter-container">
+        <div class="header">
+            <h1>Apology Letter</h1>
+            <p>Regarding Superset Registration</p>
+        </div>
+        
+        <div class="student-info">
+            <p><strong>Student Name:</strong> Ravi Sai Vigneswara</p>
+            <p><strong>Student ID:</strong> 22BADR0023</p>
+            <p><strong>Date:</strong> <span id="current-date"></span></p>
+        </div>
+        
+        <div class="content">
+            <p>Dear Rasika Ma'am,</p>
+            
+            <p>I hope this letter finds you well. I am writing to sincerely apologize for missing the deadline for the Superset registration. I deeply regret this oversight on my part and take full responsibility for not completing the registration within the stipulated timeframe.</p>
+            
+            <p>I understand the importance of adhering to deadlines and the inconvenience my delay may have caused. This was entirely unintentional, and I assure you that I will be more diligent in meeting all future deadlines without exception.</p>
+            
+            <p>I kindly request your support in enabling me to complete the registration at this time. Your understanding and assistance in this matter would be greatly appreciated, and I promise to be more proactive in all my academic responsibilities moving forward.</p>
+            
+            <p>Thank you for your time and consideration. I look forward to your positive response.</p>
+            
+            <p>Yours sincerely,</p>
+        </div>
+        
+        <div class="signature-section">
+            <p><strong>Ravi Sai Vigneswara</strong></p>
+            <p>22BADR0023</p>
+            
+            <div class="signature-instructions">
+                <p>Please sign below to acknowledge receipt of this apology letter:</p>
+            </div>
+            
+            <div class="signature-field" id="signature-pad"></div>
+            <div class="signature-line"></div>
+            <p>Rasika Ma'am's Signature</p>
+            
+            <button class="button" id="clear-btn">Clear Signature</button>
+            <button class="button" id="submit-btn">Submit</button>
+        </div>
+        
+        <div class="footer">
+            <p>This is an electronically generated document. No physical signature is required.</p>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const canvas = document.getElementById('signature-pad');
-    const signaturePad = new SignaturePad(canvas);
-
-    function clearSignature() {
-      signaturePad.clear();
-    }
-
-    function downloadSignature() {
-      if (signaturePad.isEmpty()) {
-        alert("Please sign before submitting.");
-      } else {
-        const dataURL = signaturePad.toDataURL();
-        const a = document.createElement('a');
-        a.href = dataURL;
-        a.download = 'signature.png';
-        a.click();
-      }
-    }
-  </script>
+    <script>
+        // Display current date
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
+        
+        // Simple signature functionality
+        const signaturePad = document.getElementById('signature-pad');
+        let isDrawing = false;
+        
+        signaturePad.addEventListener('mousedown', () => {
+            isDrawing = true;
+        });
+        
+        signaturePad.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            const dot = document.createElement('div');
+            dot.style.position = 'absolute';
+            dot.style.left = (e.pageX - signaturePad.getBoundingClientRect().left) + 'px';
+            dot.style.top = (e.pageY - signaturePad.getBoundingClientRect().top) + 'px';
+            dot.style.width = '2px';
+            dot.style.height = '2px';
+            dot.style.backgroundColor = '#333';
+            signaturePad.appendChild(dot);
+        });
+        
+        window.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+        
+        // Touch support for mobile devices
+        signaturePad.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isDrawing = true;
+        });
+        
+        signaturePad.addEventListener('touchmove', (e) => {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const dot = document.createElement('div');
+            dot.style.position = 'absolute';
+            dot.style.left = (touch.pageX - signaturePad.getBoundingClientRect().left) + 'px';
+            dot.style.top = (touch.pageY - signaturePad.getBoundingClientRect().top) + 'px';
+            dot.style.width = '2px';
+            dot.style.height = '2px';
+            dot.style.backgroundColor = '#333';
+            signaturePad.appendChild(dot);
+        });
+        
+        window.addEventListener('touchend', () => {
+            isDrawing = false;
+        });
+        
+        // Clear button
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            signaturePad.innerHTML = '';
+        });
+        
+        // Submit button
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            if (signaturePad.innerHTML === '') {
+                alert('Please provide a signature before submitting.');
+                return;
+            }
+            alert('Thank you! The signed apology letter has been submitted.');
+            // Here you would typically send the data to a server
+            // For this example, we'll just show an alert
+        });
+    </script>
 </body>
-
 </html>
