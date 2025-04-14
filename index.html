@@ -43,11 +43,17 @@
             width: 300px;
             margin: 40px 0 10px;
         }
+        .signature-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
         .signature-field {
             height: 100px;
             border: 1px dashed #ccc;
-            margin-bottom: 10px;
             background-color: #f8f8f8;
+            position: relative;
+            overflow: hidden;
+            touch-action: none;
         }
         .signature-instructions {
             font-size: 12px;
@@ -74,10 +80,19 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-right: 10px;
         }
         .button:hover {
             background-color: #2980b9;
+        }
+        .signature-dot {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: #333;
+            border-radius: 50%;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -116,7 +131,9 @@
                 <p>Please sign below to acknowledge receipt of this apology letter:</p>
             </div>
             
-            <div class="signature-field" id="signature-pad"></div>
+            <div class="signature-container">
+                <div class="signature-field" id="signature-pad"></div>
+            </div>
             <div class="signature-line"></div>
             <p>Rasika Ma'am's Signature</p>
             
@@ -135,51 +152,97 @@
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
         
-        // Simple signature functionality
+        // Improved signature functionality
         const signaturePad = document.getElementById('signature-pad');
         let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
         
-        signaturePad.addEventListener('mousedown', () => {
+        // Get correct position accounting for scrolling
+        function getPosition(e) {
+            const rect = signaturePad.getBoundingClientRect();
+            let x, y;
+            
+            if (e.type.includes('touch')) {
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+            
+            return { x, y };
+        }
+        
+        // Draw a dot at the specified position
+        function drawDot(x, y) {
+            const dot = document.createElement('div');
+            dot.className = 'signature-dot';
+            dot.style.left = x + 'px';
+            dot.style.top = y + 'px';
+            signaturePad.appendChild(dot);
+        }
+        
+        // Draw a line between two points
+        function drawLine(x1, y1, x2, y2) {
+            // Calculate distance between points
+            const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            
+            // Create dots along the line for smoother appearance
+            const steps = Math.max(3, Math.floor(distance / 2));
+            for (let i = 0; i <= steps; i++) {
+                const t = i / steps;
+                const x = x1 + (x2 - x1) * t;
+                const y = y1 + (y2 - y1) * t;
+                drawDot(x, y);
+            }
+        }
+        
+        // Event listeners
+        signaturePad.addEventListener('mousedown', (e) => {
             isDrawing = true;
+            const pos = getPosition(e);
+            lastX = pos.x;
+            lastY = pos.y;
+            drawDot(lastX, lastY);
         });
         
         signaturePad.addEventListener('mousemove', (e) => {
             if (!isDrawing) return;
-            const dot = document.createElement('div');
-            dot.style.position = 'absolute';
-            dot.style.left = (e.pageX - signaturePad.getBoundingClientRect().left) + 'px';
-            dot.style.top = (e.pageY - signaturePad.getBoundingClientRect().top) + 'px';
-            dot.style.width = '2px';
-            dot.style.height = '2px';
-            dot.style.backgroundColor = '#333';
-            signaturePad.appendChild(dot);
+            const pos = getPosition(e);
+            drawLine(lastX, lastY, pos.x, pos.y);
+            lastX = pos.x;
+            lastY = pos.y;
         });
         
-        window.addEventListener('mouseup', () => {
+        signaturePad.addEventListener('mouseup', () => {
             isDrawing = false;
         });
         
-        // Touch support for mobile devices
+        signaturePad.addEventListener('mouseleave', () => {
+            isDrawing = false;
+        });
+        
+        // Touch support
         signaturePad.addEventListener('touchstart', (e) => {
             e.preventDefault();
             isDrawing = true;
+            const pos = getPosition(e);
+            lastX = pos.x;
+            lastY = pos.y;
+            drawDot(lastX, lastY);
         });
         
         signaturePad.addEventListener('touchmove', (e) => {
             if (!isDrawing) return;
             e.preventDefault();
-            const touch = e.touches[0];
-            const dot = document.createElement('div');
-            dot.style.position = 'absolute';
-            dot.style.left = (touch.pageX - signaturePad.getBoundingClientRect().left) + 'px';
-            dot.style.top = (touch.pageY - signaturePad.getBoundingClientRect().top) + 'px';
-            dot.style.width = '2px';
-            dot.style.height = '2px';
-            dot.style.backgroundColor = '#333';
-            signaturePad.appendChild(dot);
+            const pos = getPosition(e);
+            drawLine(lastX, lastY, pos.x, pos.y);
+            lastX = pos.x;
+            lastY = pos.y;
         });
         
-        window.addEventListener('touchend', () => {
+        signaturePad.addEventListener('touchend', () => {
             isDrawing = false;
         });
         
@@ -194,9 +257,17 @@
                 alert('Please provide a signature before submitting.');
                 return;
             }
+            
+            // Convert signature to image (simple approach)
+            const signatureData = signaturePad.innerHTML;
+            
+            // In a real implementation, you would send this to a server
             alert('Thank you! The signed apology letter has been submitted.');
-            // Here you would typically send the data to a server
-            // For this example, we'll just show an alert
+            
+            // Here you would typically:
+            // 1. Convert signature to image/data URL
+            // 2. Send the entire form data to your server
+            // 3. Process and store the signature
         });
     </script>
 </body>
