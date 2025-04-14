@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superset Registration Apology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      padding: 2rem;
+    }
+
+    h2 {
+      color: #1f2937;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #374151;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .signature-section {
+      margin-top: 2rem;
+    }
+
+    #signature-pad {
+      border: 2px dashed #9ca3af;
+      border-radius: 0.5rem;
+      width: 100%;
+      height: 200px;
+    }
+
+    .btn {
+      margin-top: 1rem;
+      background: #2563eb;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Apology Letter - Superset Registration</h2>
+    <p>Dear Rasika Ma'am,</p>
+
+    <p>I’m <strong>Ravi Sai Vigneswara</strong> (<strong>22BADR0023</strong>), and I sincerely apologize for missing the Superset registration deadline. It was an oversight, and I truly regret the delay.</p>
+
+    <p>I kindly request your support in enabling me to complete the registration now. I will make sure to comply with all deadlines moving forward.</p>
+
+    <p>Thank you for your understanding.</p>
+
+    <p>Best regards,<br>
+      Ravi Sai Vigneswara<br>
+      22BADR0023
+    </p>
+
+    <div class="signature-section">
+      <p><strong>Digital Signature:</strong></p>
+      <canvas id="signature-pad"></canvas>
+      <button class="btn" onclick="clearSignature()">Clear Signature</button>
+      <button class="btn" onclick="downloadSignature()">Submit Signature</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    function clearSignature() {
+      signaturePad.clear();
+    }
+
+    function downloadSignature() {
+      if (signaturePad.isEmpty()) {
+        alert("Please sign before submitting.");
+      } else {
+        const dataURL = signaturePad.toDataURL();
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'signature.png';
+        a.click();
+      }
+    }
+  </script>
+</body>
+
+</html>
